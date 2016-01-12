@@ -71,8 +71,14 @@ RCT_EXPORT_METHOD(createResizedImage:(NSString *)path width:(float)width height:
         callback(@[@"Can't retrieve the file from assets library.", @""]);
       }];
   } else {
-    //Get the image from its path
-    UIImage* image = [[UIImage alloc] initWithContentsOfFile:path];
+    UIImage* image;
+    if ([path hasPrefix:@"data:"] || [path hasPrefix:@"file:"]) {
+      NSURL *imageUrl = [[NSURL alloc] initWithString:path];
+      image = [UIImage imageWithData:[NSData dataWithContentsOfURL:imageUrl]];
+    } else {
+      image = [[UIImage alloc] initWithContentsOfFile:path];
+    }
+
     if (image == nil) {
       callback(@[@"Can't retrieve the file from the path.", @""]);
       return;
