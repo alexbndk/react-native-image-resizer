@@ -37,7 +37,7 @@ NSString * generateCacheFilePath(NSString * ext)
 RCT_EXPORT_METHOD(createResizedImage:(NSString *)path width:(float)width height:(float)height quality:(float)quality callback:(RCTResponseSenderBlock)callback)
 {
   CGSize newSize = CGSizeMake(width, height);
-  NSString* fullPath = generateCacheFilePath(@".jpg");
+  NSString* fullPath = generateCacheFilePath(@"jpg");
 
   NSURL* url = [NSURL URLWithString:path];
   if ([[url scheme] isEqualToString:@"assets-library"]) {
